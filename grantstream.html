@@ -866,8 +866,8 @@
       <div class="wallet-dot"></div>
       <span id="wallet-addr">0x1a2b...3c4d</span>
     </div>
-    <button class="btn btn-ghost btn-sm" id="connect-btn" onclick="connectWallet()">Connect Wallet</button>
-    <button class="btn btn-primary btn-sm" onclick="openModal('create-modal')">Create Grant</button>
+    <button class="btn btn-ghost btn-sm" id="connect-btn" onclick="openWalletModal()">Connect Wallet</button>
+    <button class="btn btn-primary btn-sm" id="create-grant-btn" onclick="openCreateGrantModal()">Create Grant</button>
   </div>
 </nav>
 
@@ -1108,7 +1108,7 @@
       Launch your grant program in minutes. Milestone-based disbursement, built on-chain.
     </p>
     <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-      <button class="btn btn-primary btn-lg" onclick="openModal('create-modal')">Create Your First Grant</button>
+      <button class="btn btn-primary btn-lg" onclick="openCreateGrantModal()">Create Your First Grant</button>
       <button class="btn btn-ghost btn-lg" onclick="showPage('docs')">Read the Docs</button>
     </div>
   </section>
@@ -1146,7 +1146,7 @@
         <span class="sidebar-icon">◻</span> Docs
       </div>
       <div style="margin-top:auto; padding-top:2rem">
-        <div class="sidebar-item" onclick="openModal('create-modal')">
+        <div class="sidebar-item" onclick="openCreateGrantModal()">
           <span class="sidebar-icon" style="color:var(--green)">+</span>
           <span style="color:var(--green)">New Grant</span>
         </div>
@@ -1161,7 +1161,7 @@
             <div class="page-title">Dashboard</div>
             <div class="page-sub">Overview of all active grants and milestones</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openModal('create-modal')">+ Create Grant</button>
+          <button class="btn btn-primary btn-sm" onclick="openCreateGrantModal()">+ Create Grant</button>
         </div>
 
         <div class="stats-grid">
@@ -1205,7 +1205,7 @@
             <div class="page-title">My Grants</div>
             <div class="page-sub">Grants you've created or received</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openModal('create-modal')">+ New Grant</button>
+          <button class="btn btn-primary btn-sm" onclick="openCreateGrantModal()">+ New Grant</button>
         </div>
         <div class="grants-grid" id="my-grants-list"></div>
       </div>
@@ -1365,6 +1365,21 @@
   </div>
 </div>
 
+<!-- ===== WALLET CONNECT MODAL ===== -->
+<div class="modal-overlay" id="wallet-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Connect wallet</div>
+      <button class="modal-close" onclick="closeModal('wallet-modal')">×</button>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" style="width:100%; margin-bottom:10px" onclick="connectMetaMask()">MetaMask</button>
+      <button class="btn btn-outline" style="width:100%" onclick="connectWalletConnect()">WalletConnect</button>
+      <p class="page-sub" style="margin-top: 12px;">Wallet authentication is required to create grants and approve milestone releases.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ===== CREATE GRANT MODAL ===== -->
 <div class="modal-overlay" id="create-modal">
   <div class="modal">
@@ -1422,6 +1437,44 @@
 <div class="toast-container" id="toasts"></div>
 
 <script>
+const WALLETCONNECT_PROJECT_ID = 'demo-project-id';
+let wagmiConfig = null;
+let wagmiApi = null;
+let coreApi = null;
+let chainsApi = null;
+let connectorsApi = null;
+
+async function initWagmi() {
+  try {
+    wagmiApi = await import('https://cdn.jsdelivr.net/npm/wagmi@2/+esm');
+    chainsApi = await import('https://cdn.jsdelivr.net/npm/wagmi@2/chains/+esm');
+    connectorsApi = await import('https://cdn.jsdelivr.net/npm/wagmi@2/connectors/+esm');
+    const coreApi = await import('https://cdn.jsdelivr.net/npm/@wagmi/core@2/+esm');
+
+    wagmiConfig = wagmiApi.createConfig({
+      chains: [chainsApi.baseSepolia],
+      connectors: [
+        connectorsApi.injected(),
+        connectorsApi.walletConnect({ projectId: WALLETCONNECT_PROJECT_ID, showQrModal: true })
+      ],
+      transports: {
+        [chainsApi.baseSepolia.id]: wagmiApi.http('https://base-sepolia-rpc.publicnode.com')
+      }
+    });
+
+    coreApi.reconnect(wagmiConfig);
+    coreApi.watchAccount(wagmiConfig, {
+      onChange(account) {
+        updateWalletUi(account);
+      }
+    });
+    updateWalletUi(coreApi.getAccount(wagmiConfig));
+  } catch (error) {
+    console.error('Wagmi init failed', error);
+    toast('Wallet integration failed to load.', 'error');
+  }
+}
+
 const grants = [
   {
     id: 'g1', title: 'ETHGlobal Build Grant',
@@ -1615,6 +1668,13 @@ function updateMilestoneInputs() {
 }
 
 function submitGrant() {
+  if (!hasWalletConnection()) {
+    toast('Connect your wallet before creating a grant.', 'error');
+    closeModal('create-modal');
+    openWalletModal();
+    return;
+  }
+
   const title = document.getElementById('grant-title').value || 'New Grant';
   const amount = parseInt(document.getElementById('grant-amount').value) || 1000;
   const newGrant = {
@@ -1707,15 +1767,93 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
   m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); });
 });
 
-function connectWallet() {
-  const btn = document.getElementById('connect-btn');
-  btn.textContent = 'Connecting...';
-  setTimeout(() => {
-    btn.style.display = 'none';
-    document.getElementById('wallet-badge').style.display = 'flex';
-    toast('Wallet connected: 0x1a2b...3c4d', 'success');
-  }, 1000);
+function formatAddress(address) {
+  return address ? `${address.slice(0, 6)}…${address.slice(-4)}` : '';
 }
+
+function updateWalletUi(account) {
+  const badge = document.getElementById('wallet-badge');
+  const addr = document.getElementById('wallet-addr');
+  const connectBtn = document.getElementById('connect-btn');
+  if (!badge || !addr || !connectBtn) return;
+  if (!account?.address) {
+    badge.style.display = 'none';
+    connectBtn.textContent = 'Connect Wallet';
+    return;
+  }
+  addr.textContent = formatAddress(account.address);
+  badge.style.display = 'flex';
+  connectBtn.textContent = 'Disconnect';
+}
+
+function hasWalletConnection() {
+  return Boolean(wagmiConfig && coreApi && coreApi.getAccount(wagmiConfig).address);
+}
+
+function openWalletModal() {
+  if (hasWalletConnection()) {
+    if (coreApi && wagmiConfig) coreApi.disconnect(wagmiConfig);
+    updateWalletUi(null);
+    toast('Wallet disconnected.', 'success');
+    return;
+  }
+  openModal('wallet-modal');
+}
+
+async function connectMetaMask() {
+  if (!wagmiConfig || !coreApi || !connectorsApi) {
+    toast('Wallet integration is still loading. Please try again.', 'error');
+    return;
+  }
+  try {
+    await coreApi.connect(wagmiConfig, { connector: connectorsApi.injected() });
+    closeModal('wallet-modal');
+    toast('MetaMask connected.', 'success');
+  } catch (error) {
+    console.error(error);
+    toast('MetaMask connection failed.', 'error');
+  }
+}
+
+async function connectWalletConnect() {
+  if (!wagmiConfig || !coreApi || !connectorsApi) {
+    toast('Wallet integration is still loading. Please try again.', 'error');
+    return;
+  }
+  try {
+    await coreApi.connect(wagmiConfig, { connector: connectorsApi.walletConnect({ projectId: WALLETCONNECT_PROJECT_ID, showQrModal: true }) });
+    closeModal('wallet-modal');
+    toast('WalletConnect connected.', 'success');
+  } catch (error) {
+    console.error(error);
+    toast('WalletConnect connection failed.', 'error');
+  }
+}
+
+function openCreateGrantModal() {
+  if (!hasWalletConnection()) {
+    toast('Connect your wallet to create a grant.', 'error');
+    openWalletModal();
+    return;
+  }
+  openModal('create-modal');
+  updateMilestoneInputs();
+}
+
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.showPage = showPage;
+window.switchTab = switchTab;
+window.submitGrant = submitGrant;
+window.approveSubmission = approveSubmission;
+window.rejectSubmission = rejectSubmission;
+window.showGrantDetail = showGrantDetail;
+window.updateMilestoneInputs = updateMilestoneInputs;
+window.connectWallet = openWalletModal;
+window.openWalletModal = openWalletModal;
+window.openCreateGrantModal = openCreateGrantModal;
+window.connectMetaMask = connectMetaMask;
+window.connectWalletConnect = connectWalletConnect;
 
 // Animate hero counters
 function animateCounter(id, target, prefix='') {
@@ -1751,6 +1889,8 @@ setInterval(() => {
   if (feedEvents.length > 10) feedEvents.pop();
   if (document.getElementById('page-dashboard').classList.contains('active')) renderFeed();
 }, 8000);
+
+initWagmi();
 </script>
 </body>
 </html>
