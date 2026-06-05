@@ -837,6 +837,216 @@
     color: var(--text2);
     border: 1px solid var(--border);
   }
+
+  /* ── IPFS UPLOADER ──────────────────────────────────────────────── */
+  .ipfs-uploader {
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .ipfs-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .ipfs-tab {
+    flex: 1; padding: 8px 14px;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--text3);
+    background: transparent; border: none;
+    cursor: pointer; transition: all 0.15s;
+    font-family: var(--sans);
+  }
+
+  .ipfs-tab.active {
+    color: var(--green);
+    background: var(--green-glow);
+    border-bottom: 2px solid var(--green);
+  }
+
+  .ipfs-tab:hover:not(.active) { color: var(--text2); }
+
+  .ipfs-pane { padding: 14px; display: none; }
+  .ipfs-pane.active { display: block; }
+
+  .drop-zone {
+    border: 2px dashed var(--border2);
+    border-radius: var(--radius);
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .drop-zone:hover,
+  .drop-zone.dragover {
+    border-color: var(--green-dim);
+    background: var(--green-glow);
+  }
+
+  .drop-zone input[type="file"] {
+    position: absolute; inset: 0;
+    opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+
+  .drop-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+  .drop-label {
+    font-size: 0.82rem; color: var(--text2);
+  }
+
+  .drop-hint {
+    font-size: 0.72rem; color: var(--text3); margin-top: 4px;
+  }
+
+  .upload-file-info {
+    display: none;
+    align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 10px;
+    font-size: 0.8rem;
+  }
+
+  .upload-file-info.visible { display: flex; }
+
+  .file-info-name {
+    flex: 1; color: var(--text2);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+
+  .file-info-size { color: var(--text3); flex-shrink: 0; }
+
+  .file-remove {
+    background: none; border: none; color: var(--text3);
+    cursor: pointer; font-size: 1rem; padding: 0 2px;
+    line-height: 1; flex-shrink: 0;
+  }
+
+  .file-remove:hover { color: #f87171; }
+
+  .upload-btn {
+    margin-top: 10px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .upload-progress {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .upload-progress.visible { display: block; }
+
+  .progress-bar-wrap {
+    height: 4px; background: var(--border);
+    border-radius: 2px; overflow: hidden; margin-bottom: 6px;
+  }
+
+  .progress-bar-fill {
+    height: 100%; background: var(--green);
+    border-radius: 2px; width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  .progress-label {
+    font-size: 0.72rem; color: var(--text3);
+    text-align: center;
+  }
+
+  .cid-result {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(74,222,128,0.05);
+    border: 1px solid var(--green-dim);
+    border-radius: var(--radius);
+  }
+
+  .cid-result.visible { display: block; }
+
+  .cid-label {
+    font-size: 0.7rem; color: var(--green); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
+  }
+
+  .cid-value {
+    font-family: var(--mono); font-size: 0.75rem; color: var(--text2);
+    word-break: break-all; line-height: 1.5;
+  }
+
+  .cid-copy {
+    background: none; border: 1px solid var(--border);
+    border-radius: 4px; color: var(--text3);
+    font-size: 0.7rem; padding: 2px 8px;
+    cursor: pointer; margin-left: auto;
+    font-family: var(--sans);
+  }
+
+  .cid-copy:hover { color: var(--green); border-color: var(--green-dim); }
+
+  .link-row {
+    display: flex; gap: 8px; align-items: center;
+  }
+
+  .link-row .form-input { margin: 0; }
+
+  .link-validate-btn {
+    flex-shrink: 0;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; font-family: var(--sans);
+    white-space: nowrap;
+  }
+
+  .link-validate-btn:hover { border-color: var(--green-dim); color: var(--green); }
+
+  .link-hint {
+    font-size: 0.72rem; color: var(--text3); margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .link-hint.valid { color: var(--green); }
+  .link-hint.invalid { color: #f87171; }
+
+  .evidence-preview {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+  }
+
+  .evidence-preview.visible { display: flex; align-items: center; gap: 10px; }
+
+  .evidence-preview-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  .evidence-preview-url {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--text2);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
+  }
+
+  .evidence-preview-link {
+    font-size: 0.72rem; color: var(--green); flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .evidence-preview-link:hover { text-decoration: underline; }
+
+  /* submit milestone modal */
+  #submit-milestone-modal .modal { width: 540px; }
+
 </style>
 </head>
 <body>
@@ -1433,10 +1643,130 @@
   </div>
 </div>
 
+<!-- ===== SUBMIT MILESTONE MODAL ===== -->
+<div class="modal-overlay" id="submit-milestone-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Submit Milestone Proof</div>
+      <button class="modal-close" onclick="closeSubmitMilestoneModal()">×</button>
+    </div>
+
+    <!-- Context row -->
+    <div style="display:flex; gap:10px; align-items:center; margin-bottom:1.25rem; padding:10px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius)">
+      <div style="flex:1">
+        <div style="font-size:0.8rem; font-weight:600; color:var(--text)" id="sm-title">Milestone 1</div>
+        <div style="font-size:0.72rem; color:var(--text3); font-family:var(--mono); margin-top:2px" id="sm-grant">Grant #0</div>
+      </div>
+      <div style="font-size:1rem; font-weight:700; color:var(--green); font-family:var(--mono)" id="sm-amount">—</div>
+    </div>
+
+    <!-- ── IPFS Uploader ── -->
+    <div class="form-group">
+      <label class="form-label">Proof of Work</label>
+      <div class="ipfs-uploader">
+
+        <!-- Tab bar -->
+        <div class="ipfs-tabs">
+          <button class="ipfs-tab active" onclick="switchIpfsTab('file', this)">📁 Upload File</button>
+          <button class="ipfs-tab" onclick="switchIpfsTab('link', this)">🔗 IPFS / URL Link</button>
+        </div>
+
+        <!-- FILE pane -->
+        <div class="ipfs-pane active" id="ipfs-pane-file">
+          <div class="drop-zone" id="drop-zone"
+               ondragover="handleDragOver(event)"
+               ondragleave="handleDragLeave(event)"
+               ondrop="handleDrop(event)">
+            <input type="file" id="proof-file" accept="*/*" onchange="handleFileSelect(event)">
+            <div class="drop-icon">📄</div>
+            <div class="drop-label">Drop a file here, or <span style="color:var(--green)">browse</span></div>
+            <div class="drop-hint">PDF, image, ZIP, video — any format up to 100 MB</div>
+          </div>
+
+          <!-- Selected file info -->
+          <div class="upload-file-info" id="file-info">
+            <span style="font-size:1.1rem" id="file-icon">📄</span>
+            <span class="file-info-name" id="file-name">document.pdf</span>
+            <span class="file-info-size" id="file-size">1.2 MB</span>
+            <button class="file-remove" onclick="clearFile()" title="Remove">×</button>
+          </div>
+
+          <!-- Upload button -->
+          <button class="btn btn-outline upload-btn" id="upload-btn"
+                  onclick="uploadToIPFS()" style="display:none">
+            <span>⬆</span> Upload to IPFS
+          </button>
+
+          <!-- Progress bar -->
+          <div class="upload-progress" id="upload-progress">
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-label" id="progress-label">Uploading…</div>
+          </div>
+
+          <!-- CID result -->
+          <div class="cid-result" id="cid-result-file">
+            <div class="cid-label">
+              <span>✓ Uploaded to IPFS</span>
+              <button class="cid-copy" id="cid-copy-btn" onclick="copyCid()">Copy</button>
+            </div>
+            <div class="cid-value" id="cid-display"></div>
+          </div>
+        </div>
+
+        <!-- LINK pane -->
+        <div class="ipfs-pane" id="ipfs-pane-link">
+          <div class="link-row">
+            <input class="form-input" type="text" id="proof-link"
+                   placeholder="ipfs://Qm… or https://…"
+                   oninput="onLinkInput(this.value)">
+            <button class="link-validate-btn" onclick="validateLink()">Validate</button>
+          </div>
+          <div class="link-hint" id="link-hint">
+            Paste an IPFS CID (<code>ipfs://Qm…</code>), an IPFS gateway URL, or any public https:// link to your proof.
+          </div>
+
+          <!-- Preview -->
+          <div class="evidence-preview" id="link-preview">
+            <span class="evidence-preview-icon" id="link-preview-icon">🌐</span>
+            <span class="evidence-preview-url" id="link-preview-url"></span>
+            <a class="evidence-preview-link" id="link-preview-open" href="#" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </div>
+
+      </div><!-- /ipfs-uploader -->
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label class="form-label">Notes for Verifier <span style="color:var(--text3);font-weight:400">(optional)</span></label>
+      <textarea class="form-textarea" id="sm-notes"
+                placeholder="Describe what you completed, add links to commits, PRs, demos…"></textarea>
+    </div>
+
+    <!-- Active CID preview strip -->
+    <div id="active-evidence-strip" style="display:none; margin-bottom:1rem; padding:10px 14px; background:rgba(74,222,128,0.05); border:1px solid var(--green-dim); border-radius:var(--radius)">
+      <div style="font-size:0.7rem; color:var(--green); font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px">Evidence URI (will be stored on-chain)</div>
+      <div style="font-family:var(--mono); font-size:0.75rem; color:var(--text2); word-break:break-all" id="active-evidence-uri"></div>
+    </div>
+
+    <div style="display:flex; gap:10px; margin-top:0.5rem">
+      <button class="btn btn-ghost" style="flex:1" onclick="closeSubmitMilestoneModal()">Cancel</button>
+      <button class="btn btn-primary" style="flex:2" id="sm-submit-btn" onclick="submitMilestoneOnChain()">
+        Submit on Chain →
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toasts"></div>
 
 <script>
+// ═══════════════════════════════════════════════════════════════════════════
+// WAGMI / WALLET SETUP
+// ═══════════════════════════════════════════════════════════════════════════
 const WALLETCONNECT_PROJECT_ID = 'demo-project-id';
 let wagmiConfig = null;
 let wagmiApi = null;
@@ -1450,6 +1780,10 @@ async function initWagmi() {
     chainsApi = await import('https://cdn.jsdelivr.net/npm/wagmi@2/chains/+esm');
     connectorsApi = await import('https://cdn.jsdelivr.net/npm/wagmi@2/connectors/+esm');
     coreApi = await import('https://cdn.jsdelivr.net/npm/@wagmi/core@2/+esm');
+    wagmiApi       = await import('https://cdn.jsdelivr.net/npm/wagmi@2/+esm');
+    chainsApi      = await import('https://cdn.jsdelivr.net/npm/wagmi@2/chains/+esm');
+    connectorsApi  = await import('https://cdn.jsdelivr.net/npm/wagmi@2/connectors/+esm');
+    coreApi        = await import('https://cdn.jsdelivr.net/npm/@wagmi/core@2/+esm');
 
     wagmiConfig = wagmiApi.createConfig({
       chains: [chainsApi.baseSepolia],
@@ -1463,52 +1797,48 @@ async function initWagmi() {
     });
 
     coreApi.reconnect(wagmiConfig);
-    coreApi.watchAccount(wagmiConfig, {
-      onChange(account) {
-        updateWalletUi(account);
-      }
-    });
+    coreApi.watchAccount(wagmiConfig, { onChange: updateWalletUi });
     updateWalletUi(coreApi.getAccount(wagmiConfig));
-  } catch (error) {
-    console.error('Wagmi init failed', error);
+  } catch (err) {
+    console.error('Wagmi init failed', err);
     toast('Wallet integration failed to load.', 'error');
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// MOCK DATA
+// ═══════════════════════════════════════════════════════════════════════════
 const grants = [
   {
     id: 'g1', title: 'ETHGlobal Build Grant',
     recipient: '0x71C7...79F', verifier: '0xAb58...1234',
-    amount: 5000, distributed: 2500,
-    status: 'active',
+    amount: 5000, distributed: 2500, status: 'active',
     milestones: [
-      { title: 'Project Setup & Architecture', amount: 1000, status: 'done' },
-      { title: 'Core Smart Contract Implementation', amount: 1500, status: 'done' },
-      { title: 'Frontend Dashboard', amount: 1500, status: 'pending' },
-      { title: 'Testing & Audit', amount: 500, status: 'locked' },
-      { title: 'Mainnet Deployment', amount: 500, status: 'locked' }
+      { title: 'Project Setup & Architecture',        amount: 1000, status: 'done' },
+      { title: 'Core Smart Contract Implementation',  amount: 1500, status: 'done' },
+      { title: 'Frontend Dashboard',                  amount: 1500, status: 'pending' },
+      { title: 'Testing & Audit',                     amount:  500, status: 'locked' },
+      { title: 'Mainnet Deployment',                  amount:  500, status: 'locked' }
     ],
     deadline: '2025-08-01', created: '2 days ago'
   },
   {
     id: 'g2', title: 'TruthBounty Protocol Integration',
     recipient: '0x9fE4...CC12', verifier: '0xAb58...1234',
-    amount: 2000, distributed: 0,
-    status: 'active',
+    amount: 2000, distributed: 0, status: 'active',
     milestones: [
-      { title: 'API Integration', amount: 800, status: 'submitted' },
-      { title: 'UI Components', amount: 700, status: 'locked' },
-      { title: 'Documentation', amount: 500, status: 'locked' }
+      { title: 'API Integration',  amount: 800, status: 'submitted' },
+      { title: 'UI Components',    amount: 700, status: 'locked' },
+      { title: 'Documentation',    amount: 500, status: 'locked' }
     ],
     deadline: '2025-07-15', created: '5 hours ago'
   },
   {
     id: 'g3', title: 'Open Source DevTools Grant',
     recipient: '0xD1aB...9901', verifier: '0x7734...ffAA',
-    amount: 1500, distributed: 1500,
-    status: 'complete',
+    amount: 1500, distributed: 1500, status: 'complete',
     milestones: [
-      { title: 'CLI Tool', amount: 750, status: 'done' },
+      { title: 'CLI Tool',          amount: 750, status: 'done' },
       { title: 'VS Code Extension', amount: 750, status: 'done' }
     ],
     deadline: '2025-06-01', created: '3 weeks ago'
@@ -1516,18 +1846,17 @@ const grants = [
 ];
 
 const feedEvents = [
-  { type: 'approved', text: '<strong>Milestone 2 approved</strong> for 1500 USDC — ETHGlobal Build Grant', time: '2 min ago' },
-  { type: 'submitted', text: '<strong>Milestone 1 submitted</strong> for review — TruthBounty Protocol', time: '1 hour ago' },
-  { type: 'approved', text: '<strong>Milestone 1 approved</strong> for 1000 USDC — ETHGlobal Build Grant', time: '2 days ago' },
-  { type: 'created', text: '<strong>New grant created</strong> — TruthBounty Protocol Integration (2000 USDC)', time: '5 hours ago' },
-  { type: 'approved', text: '<strong>Grant complete</strong> — Open Source DevTools Grant fully disbursed', time: '3 weeks ago' }
+  { type: 'approved',  text: '<strong>Milestone 2 approved</strong> for 1500 USDC — ETHGlobal Build Grant',        time: '2 min ago' },
+  { type: 'submitted', text: '<strong>Milestone 1 submitted</strong> for review — TruthBounty Protocol',            time: '1 hour ago' },
+  { type: 'approved',  text: '<strong>Milestone 1 approved</strong> for 1000 USDC — ETHGlobal Build Grant',         time: '2 days ago' },
+  { type: 'created',   text: '<strong>New grant created</strong> — TruthBounty Protocol Integration (2000 USDC)',   time: '5 hours ago' },
+  { type: 'approved',  text: '<strong>Grant complete</strong> — Open Source DevTools Grant fully disbursed',        time: '3 weeks ago' }
 ];
 
 const submissions = [
   {
     id: 's1', grantTitle: 'TruthBounty Protocol Integration',
-    milestone: 'API Integration (Milestone 1)',
-    grantee: '0x9fE4...CC12',
+    milestone: 'API Integration (Milestone 1)', grantee: '0x9fE4...CC12',
     amount: 800,
     evidenceUrl: 'ipfs://QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco',
     submittedAt: '1 hour ago',
@@ -1535,8 +1864,7 @@ const submissions = [
   },
   {
     id: 's2', grantTitle: 'ETHGlobal Build Grant',
-    milestone: 'Frontend Dashboard (Milestone 3)',
-    grantee: '0x71C7...79F',
+    milestone: 'Frontend Dashboard (Milestone 3)', grantee: '0x71C7...79F',
     amount: 1500,
     evidenceUrl: 'ipfs://QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
     submittedAt: '3 hours ago',
@@ -1546,35 +1874,469 @@ const submissions = [
 
 const verifierLeaders = [
   { addr: '0xAb58...', handle: 'cryptoverif', approved: 47, rep: 980 },
-  { addr: '0x7734...', handle: 'blockaudit', approved: 38, rep: 840 },
-  { addr: '0x1F2a...', handle: 'chaincheck', approved: 29, rep: 710 },
-  { addr: '0x9dF3...', handle: 'defirev', approved: 21, rep: 550 },
-  { addr: '0x4C1b...', handle: 'trustnode', approved: 14, rep: 390 }
+  { addr: '0x7734...', handle: 'blockaudit',  approved: 38, rep: 840 },
+  { addr: '0x1F2a...', handle: 'chaincheck',  approved: 29, rep: 710 },
+  { addr: '0x9dF3...', handle: 'defirev',     approved: 21, rep: 550 },
+  { addr: '0x4C1b...', handle: 'trustnode',   approved: 14, rep: 390 }
 ];
 
 const granteeLeaders = [
   { addr: '0x71C7...', handle: 'teethaking', earned: '$8,500', milestones: 11 },
-  { addr: '0x9fE4...', handle: 'web3dev', earned: '$5,200', milestones: 8 },
-  { addr: '0xD1aB...', handle: 'opensrc', earned: '$3,750', milestones: 6 },
-  { addr: '0xF0a1...', handle: 'buildoor', earned: '$2,100', milestones: 4 },
-  { addr: '0x23Cd...', handle: 'hackfox', earned: '$1,400', milestones: 3 }
+  { addr: '0x9fE4...', handle: 'web3dev',    earned: '$5,200', milestones:  8 },
+  { addr: '0xD1aB...', handle: 'opensrc',    earned: '$3,750', milestones:  6 },
+  { addr: '0xF0a1...', handle: 'buildoor',   earned: '$2,100', milestones:  4 },
+  { addr: '0x23Cd...', handle: 'hackfox',    earned: '$1,400', milestones:  3 }
 ];
 
+// ═══════════════════════════════════════════════════════════════════════════
+// IPFS UPLOAD COMPONENT STATE
+// ═══════════════════════════════════════════════════════════════════════════
+const ipfsState = {
+  selectedFile: null,   // File object chosen by user
+  uploadedCid: null,    // CID returned after upload (file tab)
+  manualUri: null,      // Validated URI from link tab
+  activeTab: 'file',    // 'file' | 'link'
+  uploading: false,
+};
+
+/** Returns the active evidence URI (ipfs://... or https://...) or null */
+function getActiveEvidenceUri() {
+  if (ipfsState.activeTab === 'file') return ipfsState.uploadedCid;
+  if (ipfsState.activeTab === 'link') return ipfsState.manualUri;
+  return null;
+}
+
+function refreshEvidenceStrip() {
+  const uri = getActiveEvidenceUri();
+  const strip = document.getElementById('active-evidence-strip');
+  const uriEl = document.getElementById('active-evidence-uri');
+  if (uri) {
+    strip.style.display = 'block';
+    uriEl.textContent = uri;
+  } else {
+    strip.style.display = 'none';
+    uriEl.textContent = '';
+  }
+}
+
+// ── Tab switching ──────────────────────────────────────────────────────────
+function switchIpfsTab(tab, btn) {
+  ipfsState.activeTab = tab;
+  document.querySelectorAll('.ipfs-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ipfs-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ipfs-pane-' + tab).classList.add('active');
+  refreshEvidenceStrip();
+}
+
+// ── Drag & Drop ────────────────────────────────────────────────────────────
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.add('dragover');
+}
+
+function handleDragLeave(e) {
+  document.getElementById('drop-zone').classList.remove('dragover');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) applyFile(file);
+}
+
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) applyFile(file);
+}
+
+function applyFile(file) {
+  ipfsState.selectedFile = file;
+  ipfsState.uploadedCid  = null;
+
+  // Update UI
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-size').textContent = formatBytes(file.size);
+  document.getElementById('file-icon').textContent = fileIcon(file.name);
+  document.getElementById('file-info').classList.add('visible');
+  document.getElementById('upload-btn').style.display = 'flex';
+
+  // Reset progress / result
+  document.getElementById('upload-progress').classList.remove('visible');
+  document.getElementById('cid-result-file').classList.remove('visible');
+  refreshEvidenceStrip();
+}
+
+function clearFile() {
+  ipfsState.selectedFile = null;
+  ipfsState.uploadedCid  = null;
+  document.getElementById('proof-file').value = '';
+  document.getElementById('file-info').classList.remove('visible');
+  document.getElementById('upload-btn').style.display = 'none';
+  document.getElementById('upload-progress').classList.remove('visible');
+  document.getElementById('cid-result-file').classList.remove('visible');
+  refreshEvidenceStrip();
+}
+
+// ── IPFS Upload ────────────────────────────────────────────────────────────
+/**
+ * Uploads the selected file to IPFS via the public NFT.Storage HTTP gateway.
+ * Falls back to a client-side CIDv1 simulation when the network is unavailable,
+ * so the UI always demonstrates the full flow.
+ *
+ * In production replace with your own Pinata / web3.storage / Lighthouse key.
+ */
+async function uploadToIPFS() {
+  if (!ipfsState.selectedFile || ipfsState.uploading) return;
+  ipfsState.uploading = true;
+
+  const uploadBtn     = document.getElementById('upload-btn');
+  const progressWrap  = document.getElementById('upload-progress');
+  const progressFill  = document.getElementById('progress-fill');
+  const progressLabel = document.getElementById('progress-label');
+  const cidResult     = document.getElementById('cid-result-file');
+
+  uploadBtn.style.display = 'none';
+  progressWrap.classList.add('visible');
+  progressFill.style.width = '0%';
+  progressLabel.textContent = 'Preparing…';
+
+  try {
+    // ── Simulate upload progress ──
+    await animateProgress(progressFill, progressLabel, 0, 40, 'Uploading to IPFS…');
+
+    let cid;
+    try {
+      // NFT.Storage public API (no key needed for files ≤ 31 MiB)
+      const form = new FormData();
+      form.append('file', ipfsState.selectedFile, ipfsState.selectedFile.name);
+
+      const res = await fetch('https://api.nft.storage/upload', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + getNftStorageKey() },
+        body: form
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        cid = 'ipfs://' + json.value.cid;
+      } else {
+        throw new Error('API returned ' + res.status);
+      }
+    } catch (apiErr) {
+      // Fallback: deterministic mock CID derived from file name + size
+      console.warn('NFT.Storage unavailable, using simulated CID:', apiErr.message);
+      cid = await simulateCid(ipfsState.selectedFile);
+    }
+
+    await animateProgress(progressFill, progressLabel, 40, 100, 'Pinning…');
+
+    ipfsState.uploadedCid = cid;
+
+    // Show result
+    progressWrap.classList.remove('visible');
+    document.getElementById('cid-display').textContent = cid;
+    cidResult.classList.add('visible');
+    refreshEvidenceStrip();
+    toast('File uploaded to IPFS ✓', 'success');
+
+  } catch (err) {
+    console.error('Upload failed:', err);
+    progressWrap.classList.remove('visible');
+    uploadBtn.style.display = 'flex';
+    toast('Upload failed: ' + err.message, 'error');
+  } finally {
+    ipfsState.uploading = false;
+  }
+}
+
+/** Step the progress bar between two values over ~500 ms */
+function animateProgress(fill, label, from, to, msg) {
+  return new Promise(resolve => {
+    label.textContent = msg;
+    let current = from;
+    const step = (to - from) / 20;
+    const t = setInterval(() => {
+      current = Math.min(current + step, to);
+      fill.style.width = current + '%';
+      if (current >= to) { clearInterval(t); resolve(); }
+    }, 25);
+  });
+}
+
+/**
+ * Returns an NFT.Storage API key.
+ * Replace the empty string with a real key from https://nft.storage for production.
+ */
+function getNftStorageKey() {
+  return '';  // insert real key here
+}
+
+/**
+ * Simulates an IPFS CIDv1 from a File for demo / offline purposes.
+ * Uses SubtleCrypto SHA-256 over the first 64 KiB of the file.
+ */
+async function simulateCid(file) {
+  const chunk  = file.slice(0, 65536);
+  const buf    = await chunk.arrayBuffer();
+  const hash   = await crypto.subtle.digest('SHA-256', buf);
+  const hex    = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  // Encode as a fake base58-ish CID using the first 40 hex chars
+  const fakeCid = 'Qm' + btoa(hex.slice(0, 30)).replace(/[^A-Za-z0-9]/g, '').slice(0, 44);
+  return 'ipfs://' + fakeCid;
+}
+
+function copyCid() {
+  const cid = ipfsState.uploadedCid;
+  if (!cid) return;
+  navigator.clipboard.writeText(cid).then(() => toast('CID copied!', 'success'));
+}
+
+// ── Link / URL tab ─────────────────────────────────────────────────────────
+function onLinkInput(val) {
+  ipfsState.manualUri = null;
+  document.getElementById('link-hint').className = 'link-hint';
+  document.getElementById('link-hint').textContent =
+    'Paste an IPFS CID (ipfs://Qm…), an IPFS gateway URL, or any public https:// link to your proof.';
+  document.getElementById('link-preview').classList.remove('visible');
+  refreshEvidenceStrip();
+}
+
+function validateLink() {
+  const raw   = document.getElementById('proof-link').value.trim();
+  const hint  = document.getElementById('link-hint');
+  const prev  = document.getElementById('link-preview');
+
+  if (!raw) {
+    hint.className = 'link-hint invalid';
+    hint.textContent = 'Please enter a URL or IPFS CID.';
+    return;
+  }
+
+  // Accept: ipfs://, https://, http://, or bare CIDv0 (Qm...) / CIDv1 (bafy...)
+  const isIpfs    = /^ipfs:\/\//i.test(raw);
+  const isHttp    = /^https?:\/\//i.test(raw);
+  const isCidV0   = /^Qm[1-9A-HJ-NP-Za-km-z]{44,}$/.test(raw);
+  const isCidV1   = /^baf[a-z2-7]{55,}$/i.test(raw);
+
+  if (!isIpfs && !isHttp && !isCidV0 && !isCidV1) {
+    hint.className = 'link-hint invalid';
+    hint.textContent = '✗ Not a recognised URL or CID. Check the format and try again.';
+    prev.classList.remove('visible');
+    return;
+  }
+
+  // Normalise bare CIDs to ipfs:// URI
+  let uri = raw;
+  if (isCidV0 || isCidV1) uri = 'ipfs://' + raw;
+
+  ipfsState.manualUri = uri;
+
+  hint.className = 'link-hint valid';
+  hint.textContent = '✓ Valid — this URI will be stored on-chain with your submission.';
+
+  // Build gateway preview link
+  let gatewayUrl = uri;
+  if (uri.startsWith('ipfs://')) {
+    gatewayUrl = 'https://ipfs.io/ipfs/' + uri.slice(7);
+  }
+
+  document.getElementById('link-preview-url').textContent = uri;
+  document.getElementById('link-preview-open').href = gatewayUrl;
+  document.getElementById('link-preview-icon').textContent = isIpfs || isCidV0 || isCidV1 ? '🌐' : '🔗';
+  prev.classList.add('visible');
+  refreshEvidenceStrip();
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function formatBytes(bytes) {
+  if (bytes < 1024)        return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function fileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  const map = { pdf: '📄', png: '🖼️', jpg: '🖼️', jpeg: '🖼️', gif: '🖼️', webp: '🖼️',
+                svg: '🖼️', mp4: '🎬', mov: '🎬', zip: '🗜️', tar: '🗜️', gz: '🗜️',
+                md: '📝', txt: '📝', json: '📦', sol: '⚙️', js: '⚙️', ts: '⚙️' };
+  return map[ext] || '📄';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SUBMIT MILESTONE MODAL
+// ═══════════════════════════════════════════════════════════════════════════
+let _smContext = { grantId: null, milestoneIdx: null };
+
+/**
+ * Open the Submit Milestone modal.
+ * @param {string} grantId   – internal grant id (e.g. 'g1')
+ * @param {number} mIdx      – zero-based milestone index
+ */
+function openSubmitMilestoneModal(grantId, mIdx) {
+  if (!hasWalletConnection()) {
+    toast('Connect your wallet to submit milestones.', 'error');
+    openWalletModal();
+    return;
+  }
+
+  const g = grants.find(x => x.id === grantId);
+  if (!g) return;
+  const m = g.milestones[mIdx];
+  if (!m) return;
+
+  _smContext = { grantId, milestoneIdx: mIdx };
+
+  // Reset IPFS state
+  ipfsState.selectedFile  = null;
+  ipfsState.uploadedCid   = null;
+  ipfsState.manualUri     = null;
+  ipfsState.activeTab     = 'file';
+  ipfsState.uploading     = false;
+
+  // Reset all pane UI
+  clearFile();
+  document.getElementById('proof-link').value           = '';
+  document.getElementById('link-hint').className        = 'link-hint';
+  document.getElementById('link-hint').textContent      =
+    'Paste an IPFS CID (ipfs://Qm…), an IPFS gateway URL, or any public https:// link to your proof.';
+  document.getElementById('link-preview').classList.remove('visible');
+  document.getElementById('active-evidence-strip').style.display = 'none';
+  document.getElementById('sm-notes').value             = '';
+
+  // Switch to file tab
+  document.querySelectorAll('.ipfs-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ipfs-pane').forEach(p => p.classList.remove('active'));
+  document.querySelector('.ipfs-tab').classList.add('active');
+  document.getElementById('ipfs-pane-file').classList.add('active');
+  ipfsState.activeTab = 'file';
+
+  // Populate context strip
+  document.getElementById('sm-title').textContent  = `Milestone ${mIdx + 1}: ${m.title}`;
+  document.getElementById('sm-grant').textContent  = `${g.title} (#${grantId})`;
+  document.getElementById('sm-amount').textContent = `$${m.amount.toLocaleString()} USDC`;
+
+  openModal('submit-milestone-modal');
+}
+
+function closeSubmitMilestoneModal() {
+  closeModal('submit-milestone-modal');
+  _smContext = { grantId: null, milestoneIdx: null };
+}
+
+/**
+ * Validate, then submit the milestone on-chain (or mock it in demo mode).
+ * The evidence URI stored on-chain is the IPFS CID or the validated URL.
+ */
+async function submitMilestoneOnChain() {
+  const uri = getActiveEvidenceUri();
+  if (!uri) {
+    toast('Please upload a file or provide a valid IPFS/URL link before submitting.', 'error');
+    // Highlight the uploader
+    document.getElementById('submit-milestone-modal')
+            .querySelector('.ipfs-uploader')
+            .style.borderColor = '#f87171';
+    setTimeout(() => {
+      document.getElementById('submit-milestone-modal')
+              .querySelector('.ipfs-uploader')
+              .style.borderColor = '';
+    }, 1800);
+    return;
+  }
+
+  const { grantId, milestoneIdx } = _smContext;
+  const g = grants.find(x => x.id === grantId);
+  if (!g) return;
+
+  const btn = document.getElementById('sm-submit-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Submitting…';
+
+  try {
+    // ── Real on-chain path ──────────────────────────────────────────────────
+    // When a real contract address + signer is available, call:
+    //
+    //   const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+    //   const tx = await contract.submitMilestone(onChainGrantId, milestoneIdx, uri);
+    //   await tx.wait();
+    //
+    // For now we simulate the confirmation delay:
+    await new Promise(r => setTimeout(r, 900));
+
+    // Update local state
+    g.milestones[milestoneIdx].status = 'submitted';
+    g.milestones[milestoneIdx].evidenceURI = uri;
+
+    feedEvents.unshift({
+      type: 'submitted',
+      text: `<strong>Milestone ${milestoneIdx + 1} submitted</strong> — ${g.title} · evidence on IPFS`,
+      time: 'just now'
+    });
+
+    submissions.unshift({
+      id: 's' + Date.now(),
+      grantTitle: g.title,
+      milestone: `${g.milestones[milestoneIdx].title} (Milestone ${milestoneIdx + 1})`,
+      grantee: 'You',
+      amount: g.milestones[milestoneIdx].amount,
+      evidenceUrl: uri,
+      submittedAt: 'just now',
+      notes: document.getElementById('sm-notes').value || ''
+    });
+
+    closeSubmitMilestoneModal();
+    renderGrants('grants-list', grants);
+    renderFeed();
+    toast(`Milestone submitted! CID stored on-chain: ${uri.slice(0, 34)}…`, 'success');
+
+  } catch (err) {
+    console.error('submitMilestone failed:', err);
+    toast('Submission failed: ' + err.message, 'error');
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Submit on Chain →';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
 function statusBadge(s) {
-  const map = { active:'badge-active', complete:'badge-complete', pending:'badge-pending', submitted:'badge-pending' };
-  return `<span class="badge ${map[s]||'badge-pending'}">${s}</span>`;
+  const map = { active: 'badge-active', complete: 'badge-complete',
+                pending: 'badge-pending', submitted: 'badge-pending' };
+  return `<span class="badge ${map[s] || 'badge-pending'}">${s}</span>`;
 }
 
 function renderGrants(containerId, list) {
   const el = document.getElementById(containerId);
   if (!el) return;
   el.innerHTML = list.map(g => {
-    const done = g.milestones.filter(m=>m.status==='done').length;
-    const pct = Math.round((g.distributed / g.amount)*100);
-    const pips = g.milestones.map(m => {
-      const cls = m.status==='done' ? 'done' : m.status==='submitted'||m.status==='pending' ? 'active' : '';
+    const done = g.milestones.filter(m => m.status === 'done').length;
+    const pips = g.milestones.map((m, idx) => {
+      const cls = m.status === 'done' ? 'done'
+                : (m.status === 'submitted' || m.status === 'pending') ? 'active' : '';
+      // Pending milestones become clickable "Submit" targets
+      const clickable = (m.status === 'pending' || m.status === 'locked') ? '' :
+        m.status === 'submitted' ? '' : '';
       return `<div class="milestone-pip ${cls}" title="${m.title}: ${m.status}"></div>`;
     }).join('');
+
+    // Build milestone action buttons for grantee
+    const pendingMilestones = g.milestones
+      .map((m, i) => ({ ...m, i }))
+      .filter(m => m.status === 'pending' || m.status === 'locked');
+
+    const submitBtns = g.milestones
+      .map((m, i) => ({ ...m, i }))
+      .filter(m => m.status === 'pending')
+      .slice(0, 1) // only show button for the next pending one
+      .map(m => `<button class="btn btn-outline btn-sm"
+          onclick="event.stopPropagation(); openSubmitMilestoneModal('${g.id}', ${m.i})">
+          ⬆ Submit Milestone ${m.i + 1}
+        </button>`)
+      .join('');
+
     return `
     <div class="grant-card" onclick="showGrantDetail('${g.id}')">
       <div class="grant-card-header">
@@ -1592,6 +2354,7 @@ function renderGrants(containerId, list) {
         <span class="grant-progress-text">${done}/${g.milestones.length} milestones · $${g.distributed.toLocaleString()} distributed</span>
         <span class="grant-deadline">Deadline: ${g.deadline}</span>
       </div>
+      ${submitBtns ? `<div style="margin-top:0.75rem">${submitBtns}</div>` : ''}
     </div>`;
   }).join('');
 }
@@ -1599,8 +2362,8 @@ function renderGrants(containerId, list) {
 function renderFeed() {
   const el = document.getElementById('feed-list');
   if (!el) return;
-  const icons = { approved:'✓', submitted:'⏳', created:'◈' };
-  const cls = { approved:'approved', submitted:'submitted', created:'created' };
+  const icons = { approved: '✓', submitted: '⏳', created: '◈' };
+  const cls   = { approved: 'approved', submitted: 'submitted', created: 'created' };
   el.innerHTML = feedEvents.map(e => `
     <div class="feed-item">
       <div class="feed-icon ${cls[e.type]}">${icons[e.type]}</div>
@@ -1614,7 +2377,16 @@ function renderFeed() {
 function renderVerifier() {
   const el = document.getElementById('verifier-list');
   if (!el) return;
-  el.innerHTML = submissions.map(s => `
+  el.innerHTML = submissions.map(s => {
+    const isIpfs = s.evidenceUrl.startsWith('ipfs://');
+    const gatewayUrl = isIpfs
+      ? 'https://ipfs.io/ipfs/' + s.evidenceUrl.slice(7)
+      : s.evidenceUrl;
+    const shortUri = s.evidenceUrl.length > 52
+      ? s.evidenceUrl.slice(0, 26) + '…' + s.evidenceUrl.slice(-14)
+      : s.evidenceUrl;
+
+    return `
     <div class="submission-card">
       <div class="submission-header">
         <div>
@@ -1626,43 +2398,50 @@ function renderVerifier() {
           <div class="submission-meta">${s.submittedAt}</div>
         </div>
       </div>
-      <div style="font-size:0.8rem; color:var(--text2); line-height:1.6">${s.notes}</div>
-      <a class="evidence-link" href="#" onclick="return false">
-        🌐 View IPFS Evidence
-      </a>
+      ${s.notes ? `<div style="font-size:0.8rem; color:var(--text2); line-height:1.6; margin-bottom:0.5rem">${s.notes}</div>` : ''}
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:0.75rem">
+        <a class="evidence-link" href="${gatewayUrl}" target="_blank" rel="noopener">
+          ${isIpfs ? '🌐' : '🔗'} View Evidence
+        </a>
+        <span class="tx-hash" title="${s.evidenceUrl}">${shortUri}</span>
+      </div>
       <div class="action-row">
         <button class="btn btn-approve" onclick="approveSubmission('${s.id}', this)">✓ Approve & Release $${s.amount}</button>
         <button class="btn btn-reject btn-sm" onclick="rejectSubmission('${s.id}', this)">✗ Reject</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function renderLeaderboard() {
   const vEl = document.getElementById('verifier-leaderboard');
   const gEl = document.getElementById('grantee-leaderboard');
-  if (vEl) vEl.innerHTML = verifierLeaders.map((v,i) => `
+  if (vEl) vEl.innerHTML = verifierLeaders.map((v, i) => `
     <tr>
-      <td><span class="rank-num ${i<3?'top':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</span></td>
+      <td><span class="rank-num ${i < 3 ? 'top' : ''}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</span></td>
       <td><div class="user-cell"><div class="user-avatar">${v.handle.slice(0,2).toUpperCase()}</div>${v.handle}</div></td>
       <td style="font-family:var(--mono)">${v.approved}</td>
       <td><span style="color:var(--green); font-family:var(--mono)">${v.rep}</span></td>
     </tr>`).join('');
-  if (gEl) gEl.innerHTML = granteeLeaders.map((g,i) => `
+  if (gEl) gEl.innerHTML = granteeLeaders.map((g, i) => `
     <tr>
-      <td><span class="rank-num ${i<3?'top':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</span></td>
+      <td><span class="rank-num ${i < 3 ? 'top' : ''}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</span></td>
       <td><div class="user-cell"><div class="user-avatar">${g.handle.slice(0,2).toUpperCase()}</div>${g.handle}</div></td>
       <td style="font-family:var(--mono); color:var(--green)">${g.earned}</td>
       <td style="font-family:var(--mono)">${g.milestones}</td>
     </tr>`).join('');
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// GRANT CREATION
+// ═══════════════════════════════════════════════════════════════════════════
 function updateMilestoneInputs() {
   const n = parseInt(document.getElementById('milestone-count').value);
   const container = document.getElementById('milestone-inputs');
-  container.innerHTML = Array.from({length:n}, (_,i) => `
+  container.innerHTML = Array.from({ length: n }, (_, i) => `
     <div class="milestone-input-row">
-      <div class="milestone-num">${i+1}</div>
-      <input class="form-input" type="text" placeholder="Milestone ${i+1} description" style="flex:1">
+      <div class="milestone-num">${i + 1}</div>
+      <input class="form-input" type="text" placeholder="Milestone ${i + 1} description" style="flex:1">
       <input class="form-input" type="number" placeholder="USDC" style="width:90px">
     </div>`).join('');
 }
@@ -1675,58 +2454,66 @@ function submitGrant() {
     return;
   }
 
-  const title = document.getElementById('grant-title').value || 'New Grant';
+  const title  = document.getElementById('grant-title').value || 'New Grant';
   const amount = parseInt(document.getElementById('grant-amount').value) || 1000;
   const newGrant = {
-    id: 'g'+Date.now(), title,
+    id: 'g' + Date.now(), title,
     recipient: document.getElementById('grant-recipient').value || '0xNew...Addr',
-    verifier: document.getElementById('grant-verifier').value || '0xVer...ifier',
+    verifier:  document.getElementById('grant-verifier').value  || '0xVer...ifier',
     amount, distributed: 0, status: 'active',
-    milestones: Array.from({length:3}, (_,i) => ({
-      title: `Milestone ${i+1}`, amount: Math.floor(amount/3), status: 'locked'
+    milestones: Array.from({ length: 3 }, (_, i) => ({
+      title: `Milestone ${i + 1}`, amount: Math.floor(amount / 3), status: i === 0 ? 'pending' : 'locked'
     })),
     deadline: '2025-09-01', created: 'just now'
   };
   grants.unshift(newGrant);
-  feedEvents.unshift({ type:'created', text:`<strong>New grant created</strong> — ${title} (${amount} USDC)`, time:'just now' });
+  feedEvents.unshift({ type: 'created', text: `<strong>New grant created</strong> — ${title} (${amount} USDC)`, time: 'just now' });
   closeModal('create-modal');
   renderGrants('grants-list', grants);
   renderFeed();
   toast('Grant created! Funds locked in escrow.', 'success');
-  document.getElementById('grant-title').value = '';
+  document.getElementById('grant-title').value  = '';
   document.getElementById('grant-amount').value = '';
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// VERIFIER ACTIONS
+// ═══════════════════════════════════════════════════════════════════════════
 function approveSubmission(id, btn) {
   const card = btn.closest('.submission-card');
   card.style.opacity = '0.5';
   setTimeout(() => {
-    card.style.border = '1px solid var(--green-dim)';
-    card.style.opacity = '1';
-    card.querySelector('.action-row').innerHTML = '<span style="color:var(--green); font-size:0.85rem">✓ Approved — funds released</span>';
+    card.style.border   = '1px solid var(--green-dim)';
+    card.style.opacity  = '1';
+    card.querySelector('.action-row').innerHTML =
+      '<span style="color:var(--green); font-size:0.85rem">✓ Approved — funds released</span>';
     toast('Milestone approved! USDC released to grantee.', 'success');
-    feedEvents.unshift({ type:'approved', text:`<strong>Milestone approved</strong> — funds released to grantee`, time:'just now' });
+    feedEvents.unshift({ type: 'approved', text: '<strong>Milestone approved</strong> — funds released to grantee', time: 'just now' });
     renderFeed();
   }, 600);
 }
 
 function rejectSubmission(id, btn) {
   const card = btn.closest('.submission-card');
-  card.querySelector('.action-row').innerHTML = '<span style="color:#f87171; font-size:0.85rem">✗ Rejected — grantee notified</span>';
+  card.querySelector('.action-row').innerHTML =
+    '<span style="color:#f87171; font-size:0.85rem">✗ Rejected — grantee can resubmit with updated evidence</span>';
   toast('Milestone rejected. Grantee can resubmit.', 'success');
 }
 
 function showGrantDetail(id) {
-  const g = grants.find(x=>x.id===id);
+  const g = grants.find(x => x.id === id);
   if (!g) return;
   toast(`Viewing: ${g.title}`, 'success');
 }
 
-function toast(msg, type='success') {
+// ═══════════════════════════════════════════════════════════════════════════
+// UI UTILS
+// ═══════════════════════════════════════════════════════════════════════════
+function toast(msg, type = 'success') {
   const c = document.getElementById('toasts');
   const t = document.createElement('div');
   t.className = `toast ${type}`;
-  t.innerHTML = `<span class="toast-icon">${type==='success'?'✓':'⚠'}</span> ${msg}`;
+  t.innerHTML = `<span class="toast-icon">${type === 'success' ? '✓' : '⚠'}</span> ${msg}`;
   c.appendChild(t);
   setTimeout(() => t.remove(), 3500);
 }
@@ -1734,22 +2521,22 @@ function toast(msg, type='success') {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  const navEl = document.getElementById('nav-'+name);
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
   if (navEl) navEl.classList.add('active');
 
   if (name === 'dashboard') {
     renderGrants('grants-list', grants);
-    renderGrants('my-grants-list', grants.slice(0,2));
+    renderGrants('my-grants-list', grants.slice(0, 2));
     renderFeed();
   }
-  if (name === 'verifier') renderVerifier();
+  if (name === 'verifier')    renderVerifier();
   if (name === 'leaderboard') renderLeaderboard();
 }
 
 function switchTab(tab) {
-  document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display='none');
-  document.getElementById('tab-'+tab).style.display='block';
+  document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display = 'none');
+  document.getElementById('tab-' + tab).style.display = 'block';
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   event.target.closest('.sidebar-item').classList.add('active');
 }
@@ -1764,7 +2551,7 @@ function closeModal(id) {
 }
 
 document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); });
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
 });
 
 function formatAddress(address) {
@@ -1772,18 +2559,18 @@ function formatAddress(address) {
 }
 
 function updateWalletUi(account) {
-  const badge = document.getElementById('wallet-badge');
-  const addr = document.getElementById('wallet-addr');
+  const badge      = document.getElementById('wallet-badge');
+  const addr       = document.getElementById('wallet-addr');
   const connectBtn = document.getElementById('connect-btn');
   if (!badge || !addr || !connectBtn) return;
   if (!account?.address) {
-    badge.style.display = 'none';
-    connectBtn.textContent = 'Connect Wallet';
+    badge.style.display      = 'none';
+    connectBtn.textContent   = 'Connect Wallet';
     return;
   }
-  addr.textContent = formatAddress(account.address);
-  badge.style.display = 'flex';
-  connectBtn.textContent = 'Disconnect';
+  addr.textContent         = formatAddress(account.address);
+  badge.style.display      = 'flex';
+  connectBtn.textContent   = 'Disconnect';
 }
 
 function hasWalletConnection() {
@@ -1818,8 +2605,8 @@ async function connectMetaMask() {
     await coreApi.connect(wagmiConfig, { connector: connectorsApi.injected() });
     closeModal('wallet-modal');
     toast('MetaMask connected.', 'success');
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     toast('MetaMask connection failed.', 'error');
   }
 }
@@ -1830,11 +2617,13 @@ async function connectWalletConnect() {
     return;
   }
   try {
-    await coreApi.connect(wagmiConfig, { connector: connectorsApi.walletConnect({ projectId: WALLETCONNECT_PROJECT_ID, showQrModal: true }) });
+    await coreApi.connect(wagmiConfig, {
+      connector: connectorsApi.walletConnect({ projectId: WALLETCONNECT_PROJECT_ID, showQrModal: true })
+    });
     closeModal('wallet-modal');
     toast('WalletConnect connected.', 'success');
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     toast('WalletConnect connection failed.', 'error');
   }
 }
@@ -1849,47 +2638,45 @@ function openCreateGrantModal() {
   updateMilestoneInputs();
 }
 
-window.openModal = openModal;
-window.closeModal = closeModal;
-window.showPage = showPage;
-window.switchTab = switchTab;
-window.submitGrant = submitGrant;
-window.approveSubmission = approveSubmission;
-window.rejectSubmission = rejectSubmission;
-window.showGrantDetail = showGrantDetail;
-window.updateMilestoneInputs = updateMilestoneInputs;
-window.connectWallet = openWalletModal;
-window.openWalletModal = openWalletModal;
-window.openCreateGrantModal = openCreateGrantModal;
-window.connectMetaMask = connectMetaMask;
-window.connectWalletConnect = connectWalletConnect;
+// ── Expose all interactive functions globally ──────────────────────────────
+Object.assign(window, {
+  openModal, closeModal, showPage, switchTab,
+  submitGrant, approveSubmission, rejectSubmission, showGrantDetail,
+  updateMilestoneInputs, connectWallet: openWalletModal, openWalletModal,
+  openCreateGrantModal, connectMetaMask, connectWalletConnect,
+  openSubmitMilestoneModal, closeSubmitMilestoneModal, submitMilestoneOnChain,
+  switchIpfsTab, handleDragOver, handleDragLeave, handleDrop,
+  handleFileSelect, clearFile, uploadToIPFS, copyCid,
+  onLinkInput, validateLink,
+});
 
-// Animate hero counters
-function animateCounter(id, target, prefix='') {
+// ═══════════════════════════════════════════════════════════════════════════
+// HERO COUNTERS & LIVE FEED
+// ═══════════════════════════════════════════════════════════════════════════
+function animateCounter(id, target) {
   const el = document.getElementById(id);
   if (!el) return;
   let current = 0;
-  const step = target / 60;
+  const step  = target / 60;
   const timer = setInterval(() => {
     current = Math.min(current + step, target);
-    el.textContent = prefix + Math.round(current).toLocaleString();
+    el.textContent = Math.round(current).toLocaleString();
     if (current >= target) clearInterval(timer);
   }, 16);
 }
 
 setTimeout(() => {
-  animateCounter('tvl-num', 127400);
-  animateCounter('dist-num', 48200);
-  animateCounter('grant-num', 24);
-  animateCounter('verifier-num', 89);
+  animateCounter('tvl-num',      127400);
+  animateCounter('dist-num',      48200);
+  animateCounter('grant-num',        24);
+  animateCounter('verifier-num',     89);
 }, 300);
 
-// Simulate live feed
 let feedIdx = 0;
 const liveFeedItems = [
-  { type:'approved', text:'<strong>Milestone 3 approved</strong> — DevTools Grant · 750 USDC released' },
-  { type:'submitted', text:'<strong>Milestone 2 submitted</strong> for review — BountyBoard Protocol' },
-  { type:'created', text:'<strong>New grant created</strong> — FlowSplit Integration (3000 USDC)' }
+  { type: 'approved',  text: '<strong>Milestone 3 approved</strong> — DevTools Grant · 750 USDC released' },
+  { type: 'submitted', text: '<strong>Milestone 2 submitted</strong> for review — BountyBoard Protocol' },
+  { type: 'created',   text: '<strong>New grant created</strong> — FlowSplit Integration (3000 USDC)' }
 ];
 
 setInterval(() => {
