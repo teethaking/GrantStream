@@ -1,0 +1,10 @@
+[package]
+name = "grantstream-shared"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.42", features = ["sync", "time", "macros"] }
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
