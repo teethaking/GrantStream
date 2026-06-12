@@ -676,6 +676,13 @@
     display: grid; gap: 1rem;
   }
 
+  .empty-state {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem 1.5rem; text-align: center; color: var(--text3);
+  }
+  .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.6; }
+  .empty-state-text { font-size: 0.95rem; max-width: 24rem; line-height: 1.5; }
+
   .submission-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -2447,6 +2454,14 @@ function renderFeed() {
 function renderVerifier() {
   const el = document.getElementById('verifier-list');
   if (!el) return;
+  if (!submissions.length) {
+    el.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <div class="empty-state-text">No pending submissions — check back after grantees submit their milestones.</div>
+      </div>`;
+    return;
+  }
   el.innerHTML = submissions.map(s => {
     const isIpfs = s.evidenceUrl.startsWith('ipfs://');
     const gatewayUrl = isIpfs
