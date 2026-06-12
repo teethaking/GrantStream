@@ -3,3 +3,6 @@ artifacts/
 cache/
 .env
 coverage/
+
+# Rust build artifacts
+grantstream-cli/target/
