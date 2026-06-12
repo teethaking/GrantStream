@@ -3043,24 +3043,80 @@ Object.assign(window, {
 // ═══════════════════════════════════════════════════════════════════════════
 // HERO COUNTERS & LIVE FEED
 // ═══════════════════════════════════════════════════════════════════════════
-function animateCounter(id, target) {
+const HERO_COUNTER_CACHE_KEY = 'grantstream:hero-counters';
+const HERO_COUNTERS = {
+  'tvl-num': 127400,
+  'dist-num': 48200,
+  'grant-num': 24,
+  'verifier-num': 89,
+};
+
+function formatCounterValue(value) {
+  return Math.round(value).toLocaleString();
+}
+
+function animateCounter(id, target, onComplete) {
   const el = document.getElementById(id);
   if (!el) return;
+
   let current = 0;
-  const step  = target / 60;
+  const step = target / 60;
   const timer = setInterval(() => {
     current = Math.min(current + step, target);
-    el.textContent = Math.round(current).toLocaleString();
-    if (current >= target) clearInterval(timer);
+    el.textContent = formatCounterValue(current);
+
+    if (current >= target) {
+      clearInterval(timer);
+      el.textContent = formatCounterValue(target);
+      onComplete?.();
+    }
   }, 16);
 }
 
-setTimeout(() => {
-  animateCounter('tvl-num',      127400);
-  animateCounter('dist-num',      48200);
-  animateCounter('grant-num',        24);
-  animateCounter('verifier-num',     89);
-}, 300);
+function loadHeroCounterValues() {
+  try {
+    const cached = JSON.parse(sessionStorage.getItem(HERO_COUNTER_CACHE_KEY));
+    return cached && typeof cached === 'object'
+      ? Object.fromEntries(
+          Object.entries(HERO_COUNTERS)
+            .filter(([id]) => Object.prototype.hasOwnProperty.call(cached, id))
+            .map(([id]) => [id, cached[id]])
+        )
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveHeroCounterValues(values) {
+  try {
+    sessionStorage.setItem(HERO_COUNTER_CACHE_KEY, JSON.stringify(values));
+  } catch {
+  }
+}
+
+function initHeroCounters() {
+  const cached = loadHeroCounterValues();
+  const values = {};
+
+  Object.entries(HERO_COUNTERS).forEach(([id, target]) => {
+    if (cached) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = formatCounterValue(target);
+      values[id] = target;
+      return;
+    }
+
+    animateCounter(id, target, () => {
+      values[id] = target;
+      if (Object.keys(values).length === Object.keys(HERO_COUNTERS).length) {
+        saveHeroCounterValues(values);
+      }
+    });
+  });
+}
+
+setTimeout(initHeroCounters, 300);
 
 let feedIdx = 0;
 const liveFeedItems = [
